@@ -4,19 +4,18 @@ services:
   api:
     build: ./api
     ports:
-      - 80:80
       - 8000:8000
-      - 3306:3306
     volumes:
       - ./mysql:/var/lib/mysql
 
   manager:
     build:
       context: ./client
-      dockerfile: Dockerfile_manager
+      dockerfile: manager.Dockerfile
     ports:
       - 3000:3000
     working_dir: /app/service-manager
+    # Addresses https://github.com/facebook/create-react-app/issues/8688
     stdin_open: true
     volumes:
       - ./client/service-manager:/app/service-manager
@@ -26,10 +25,11 @@ services:
   calculator:
     build:
       context: ./client
-      dockerfile: Dockerfile_calculator
+      dockerfile: calculator.Dockerfile
     ports:
       - 3001:3001
     working_dir: /app/service-calculator
+    # Addresses https://github.com/facebook/create-react-app/issues/8688
     stdin_open: true
     volumes:
       - ./client/service-calculator:/app/service-calculator

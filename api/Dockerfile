@@ -1,5 +1,5 @@
-# Use LAMP image
-FROM mattrayner/lamp:latest-1804
+# Use DockerLAMP image: https://hub.docker.com/r/mattrayner/lamp
+FROM mattrayner/lamp:latest
 
 # Install package dependencies
 RUN apt-get update
@@ -9,8 +9,8 @@ RUN apt-get -y install php7.4-ldap
 RUN apt-get -y install php7.4-intl
 
 # Install vendor dependencies
-ADD . /api
 WORKDIR /api
+ADD . /api
 RUN composer install
 
 # Use custom create_mysql_users.sh to also create services schema
