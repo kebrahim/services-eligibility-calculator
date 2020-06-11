@@ -4,6 +4,7 @@ services:
   api:
     build: ./api
     ports:
+      - 80:80
       - 8000:8000
     volumes:
       - ./mysql:/var/lib/mysql
@@ -17,10 +18,6 @@ services:
     working_dir: /app/service-manager
     # Addresses https://github.com/facebook/create-react-app/issues/8688
     stdin_open: true
-    volumes:
-      - ./client/service-manager:/app/service-manager
-      - ./client/common:/app/common
-      - ./client/testing:/app/testing
 
   calculator:
     build:
@@ -31,7 +28,3 @@ services:
     working_dir: /app/service-calculator
     # Addresses https://github.com/facebook/create-react-app/issues/8688
     stdin_open: true
-    volumes:
-      - ./client/service-calculator:/app/service-calculator
-      - ./client/common:/app/common
-      - ./client/testing:/app/testing
