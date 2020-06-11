@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  api:
+    build: ./api
+    ports:
+      - 80:80
+      - 8000:8000
+      - 3306:3306
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  manager:
+    build:
+      context: ./client
+      dockerfile: Dockerfile_manager
+    ports:
+      - 3000:3000
+    working_dir: /app/service-manager
+    stdin_open: true
+    volumes:
+      - ./client/service-manager:/app/service-manager
+      - ./client/common:/app/common
+      - ./client/testing:/app/testing
+
+  calculator:
+    build:
+      context: ./client
+      dockerfile: Dockerfile_calculator
+    ports:
+      - 3001:3001
+    working_dir: /app/service-calculator
+    stdin_open: true
+    volumes:
+      - ./client/service-calculator:/app/service-calculator
+      - ./client/common:/app/common
+      - ./client/testing:/app/testing
